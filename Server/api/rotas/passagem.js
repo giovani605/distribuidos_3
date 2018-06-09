@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const gerenciador = require('./GerenciadorPassagem.js');
 // aqui eu vou linda com os get request
+var cont = 0;
+
 router.get('/', (req,res,next) => {
   console.log('Consegui' + cont);
   cont++;
