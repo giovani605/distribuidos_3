@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -14,7 +13,7 @@ type Passagem struct {
 	origem  string
 	destino string
 	numero  int
-	tipo    int
+	tipo    string
 }
 
 /*
@@ -30,13 +29,23 @@ type
 */
 
 func main() {
-	url := "http://localhost:8080/passagens"
+	url := "http://localhost:8080/passagem/todos"
 	//"http://localhost/hotel:8080"
+	/*var pa Passagem
+	pa.data=10
+	pa.origem='curitiba'
+	pa.destino='penapolis'
+	pa.numero= 13
+	pa.tipo= ida
+	resp, err := http.Post(url, , &buf)
+
+	body := bytes.NewBufferString(pa.Encode())
+
+	*/
 
 	res, err := http.Get(url)
 	if err != nil {
-		fmt.Println("vai dar pau 1if")
-
+		fmt.Println("vai dar pau 1if?")
 		panic(err)
 	}
 
@@ -44,24 +53,26 @@ func main() {
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println("vai dar pau 2if")
+		fmt.Println("vai dar pau 2if?")
 		panic(err)
 	}
 	fmt.Println(body)
 
-	var dadosJson Passagem
-	erro := json.Unmarshal(body, &dadosJson) // aqui acontece a magica!
-
 	bodye := []byte(body)
 	fmt.Println(string(bodye))
 
-	if erro != nil {
-		fmt.Println("vai dar pau 3if")
-		fmt.Println(erro)
+	/*	IMPORTANTEEEEEEEEEEEEEEEEEEEEEE
+		var dadosJson Passagem
+		erro := json.Unmarshal(body, &dadosJson) // aqui acontece a magica!
 
-		panic(erro)
-	}
-	fmt.Println(dadosJson)
+		if erro != nil {
+			fmt.Println("vai dar pau 3if")
+			fmt.Println(erro)
+
+			panic(erro)
+		}
+		fmt.Println(dadosJson)
+	*/ //ATE AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
 	//err = json.Unmarshal(body, &p)
 	//if err != nil {
@@ -106,6 +117,8 @@ func main() {
 	fmt.Scan(&p.numero)
 	fmt.Println("Ida (1), Volta(2)")
 	fmt.Scan(&p.tipo)
+
+	fmt.Println(p)
 	/*
 			res := Passagem{}
 			res1D := &Passagem{
@@ -137,13 +150,14 @@ func main() {
 	var passag Passagem
 	err := json.Unmarshal(simpleObjectJson, &passag)
 	*/
-	/*res1D := &passagem{x
-	        data: ,
-	        origem: ,
-			destino: ,
-			numero: ,
-			tipo: ,
-		}*/
+	/*var passag Passagem
+	comprar := &Passagem{
+		data:    hoje,
+		origem:  'curitiba',
+		destino: 'penapolis',
+		numero:  13,
+		tipo:    'ida',
+	}
 	//pass, _ := json.Marshal(p)
 	//fmt.Println(string(pass))
 
@@ -167,6 +181,9 @@ func main() {
 		fmt.Println("response Body:", string(body))
 	}
 	*/
+
+	//b, err := json.Marshal(passag)
+
 }
 
 //Funcoes

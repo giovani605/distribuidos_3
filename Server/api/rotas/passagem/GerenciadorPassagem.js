@@ -24,6 +24,7 @@ function salvar(passagem){
   // add no map
   mapa.set(id,passagem);
   cont++;
+  listarPassagem();
 }
 // essa funcao testa se a passagem eh valida
 function testarPassagem(passagem){
@@ -54,9 +55,18 @@ function testarPassagem(passagem){
     }
   }
 
-  function listarPassagem(){
-    // retorna a lista a lista de passagem
 
+  // retorna um mapa das passagens cadastradas
+  function listarPassagem(){
+    if(mapa.size == 0){
+      return;
+    }
+    var lista = [];
+    for(let a of mapa.values()){
+        lista.push(JSON.stringify(a));
+    }
+    return lista;
   }
   exports.consultar = consultarPassagem;
   exports.criar = criarPassagem;
+  exports.listar = listarPassagem;
