@@ -3,20 +3,13 @@
 // cria uma mapa que tem as passagens
 "use strict";
 var mapa = new Map();
-
-mapa.set(1, "teste");
-mapa.set(2,"tese");
 const Passagem = require('./ClassPassagem');
-var teste1 = new Passagem();
-var teste2 = new Passagem();
-teste1.data = "hoje";
-teste2.data = "ontem";
-console.log(teste1);
-console.log(teste2);
+var cont = 1;
 
 function criarPassagem(passagem) {
   if(testarPassagem(passagem)){
-    salvar();
+    salvar(passagem);
+    console.log("salvei a passagem");
     return true;
   }
   else{
@@ -25,23 +18,28 @@ function criarPassagem(passagem) {
 }
 function salvar(passagem){
   // criar um id
-  var id = "1";
+  console.log(passagem);
+  let id = cont;
+  passagem.id = id;
   // add no map
   mapa.set(id,passagem);
+  cont++;
 }
 // essa funcao testa se a passagem eh valida
 function testarPassagem(passagem){
+  if(mapa.size == 0){
+    return true;
+  }
 
   for(var a of mapa.values()){
+    console.log(a);
     if(a.data == passagem.data &&
       a.origem == passagem.origem &&
       a.destino == passagem.destino &&
       a.numero == passagem.numero){
         return false;
       }
-
     }
-
     return true;
   }
 
@@ -61,3 +59,4 @@ function testarPassagem(passagem){
 
   }
   exports.consultar = listarPassagem;
+  exports.criar = criarPassagem;
