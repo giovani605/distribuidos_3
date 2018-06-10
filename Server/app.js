@@ -3,9 +3,11 @@ const express = require('express');
 
 const app = express();
 // importa o arquivo de pssagem
-const passagens = require('./api/rotas/passagem.js')
+const passagens = require('./api/rotas/passagem.js');
+const hotel = require('./api/rotas/hotel/hotelREST.js');
 
 app.use('/passagem',passagens);
+app.use('/hotel',hotel);
 
 module.exports = app;
 

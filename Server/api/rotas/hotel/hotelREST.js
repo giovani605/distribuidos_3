@@ -1,12 +1,9 @@
-// esse arquivo lida com os requests nas passagens
 const express = require('express');
 const router = express.Router();
-const gerenciador = require('./GerenciadorPassagem.js');
+//const gerenciador = require('./GerenciadorPassagem.js');
 // aqui eu vou linda com os get request
-var cont = 0;
 
 router.get('/', (req,res,next) => {
-  
 
   res.status(200).json({
     message: 'lidando o get'

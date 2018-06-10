@@ -1,0 +1,13 @@
+"use strict";
+class Passagem{
+
+constructor(){
+this.id;
+this.data;
+this.origem;
+this.destino;
+this.numero;
+this.tipo;
+}
+}
+module.exports = Passagem;
