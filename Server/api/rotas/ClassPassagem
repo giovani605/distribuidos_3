@@ -9,5 +9,8 @@ this.destino;
 this.numero;
 this.tipo;
 }
+setid(id){
+this.id = id;
+}
 }
 module.exports = Passagem;
