@@ -18,46 +18,40 @@ function extrairDados(body){
   return pass;
 }
 
-router.get('/', (req,res,next) => {
+router.get('/:id', (req,res,next) => {
   // recuperar dados do request
-  console.log(req.body);
-  var pass = extrairDados(req.body);
-  if(gerenciador.consultar(pass)){
-    res.status(200).json({
-      message:'Passagem disponivel'
-    });
-  }else{
-    res.status(200).json({
-      message:'Passagem nao disponivel'
-    });
-  }
+  //  console.log(req);
+  var id = req.params.id;
+  var obj = gerenciador.consultar(id);
+  res.status(200).json({
+    message:'OK',
+    dados:obj
+  });
+
 });
 
 
-
-// recupera uma lista com todas as passagens
-router.get('/todos', (req,res,next) => {
-  res.status(200).send(gerenciador.listar());
-  console.log("passei");
+// recupera uma lista com todas as passagens disponiveis
+router.get('/', (req,res,next) => {
+  var a = gerenciador.listar();
+  res.status(200).json({
+    dados: a
+  });
   return;
-
 });
-// aqui lido com os post resquest
-router.post('/', (req,res,next) =>{
-  console.log(req.body);
-  var pass = extrairDados(req.body);
-  if(gerenciador.criar(pass)){
+
+// aqui o cliente quer comprar a passagem
+router.post('/:id', (req,res,next) =>{
+  var id = req.params.id;
+  if(gerenciador.comprar(id)){
     res.status(200).json({
-      message:'Passagem comprada com sucesso'
+      message:'comprada com sucesso'
     });
   }else{
     res.status(200).json({
-      message:'Passagem negada'
+      message:'passagem nao disponivel'
     });
   }
 });
-
-
-
 
 module.exports = router;
