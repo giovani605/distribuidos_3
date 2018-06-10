@@ -58,5 +58,5 @@ function testarPassagem(passagem){
     // retorna a lista a lista de passagem
 
   }
-  exports.consultar = listarPassagem;
+  exports.consultar = consultarPassagem;
   exports.criar = criarPassagem;
