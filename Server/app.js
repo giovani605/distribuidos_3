@@ -5,13 +5,14 @@ const app = express();
 // importa o arquivo de pssagem
 const passagens = require('./api/rotas/passagem.js');
 const hotel = require('./api/rotas/hotel/hotelREST.js');
-
+const bodyParser =  require('body-parser');
+app.use(bodyParser.json());
 app.use('/passagem',passagens);
 app.use('/hotel',hotel);
 
 module.exports = app;
-
 // app.use((req,res,next) =>{
+
 //   console.log("chegou um request");
 //
 //   res.status(200).json(
