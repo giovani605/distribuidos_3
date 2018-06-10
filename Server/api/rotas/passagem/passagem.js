@@ -34,19 +34,30 @@ router.get('/', (req,res,next) => {
 });
 
 
-  // aqui lido com os post resquest
-  router.post('/', (req,res,next) =>{
-    console.log(req.body);
-    var pass = extrairDados(req.body);
-    if(gerenciador.criar(pass)){
-      res.status(200).json({
-        message:'Passagem comprada com sucesso'
-      });
-    }else{
-      res.status(200).json({
-        message:'Passagem negada'
-      });
-    }
-  });
 
-  module.exports = router;
+// recupera uma lista com todas as passagens
+router.get('/todos', (req,res,next) => {
+  res.status(200).send(gerenciador.listar());
+  console.log("passei");
+  return;
+
+});
+// aqui lido com os post resquest
+router.post('/', (req,res,next) =>{
+  console.log(req.body);
+  var pass = extrairDados(req.body);
+  if(gerenciador.criar(pass)){
+    res.status(200).json({
+      message:'Passagem comprada com sucesso'
+    });
+  }else{
+    res.status(200).json({
+      message:'Passagem negada'
+    });
+  }
+});
+
+
+
+
+module.exports = router;
