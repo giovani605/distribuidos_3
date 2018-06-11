@@ -9,6 +9,10 @@ this.destino;
 this.numero;
 this.tipo;
 this.comprada;
+this.dataVolta;
+this.idade;
+this.cartao;
+this.parcela;
 }
 setid(id){
 this.id = id;

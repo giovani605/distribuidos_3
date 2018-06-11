@@ -40,10 +40,37 @@ router.get('/', (req,res,next) => {
   return;
 });
 
+
+function testarDadosCompra(cartao,parcela,idade){
+  if(cartao == null){
+    return false;
+  }
+  if(idade == null){
+    return false;
+  }
+  if(parcela == null){
+    return false;
+  }
+
+  return true;
+}
+
 // aqui o cliente quer comprar a passagem
 router.post('/:id', (req,res,next) =>{
   var id = req.params.id;
-  if(gerenciador.comprar(id)){
+  // extrair variaveis que vem no body
+  let cartao = req.body.cartao;
+  let parcela = req.body.parcela;
+  let idade = req.body.idade;
+
+  if(!testarDadosCompra(cartao,parcela,idade)){
+    res.status(200).json({
+      message:'dados invalidos'
+    });
+    return;
+  }
+  console.log("dsadsa");
+  if(gerenciador.comprar(id,cartao,parcela,idade)){
     res.status(200).json({
       message:'comprada com sucesso'
     });
@@ -53,5 +80,7 @@ router.post('/:id', (req,res,next) =>{
     });
   }
 });
+
+
 
 module.exports = router;

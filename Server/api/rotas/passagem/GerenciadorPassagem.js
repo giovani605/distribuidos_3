@@ -39,12 +39,15 @@ function listarPassagem(){
   }
   return lista;
 }
-function comprar(id){
+function comprar(id,cartao,parcela,idade){
   var pass = consultarPassagem(id);
   if(pass.comprada == true){
     return false;
   }
   pass.comprada = true;
+  pass.cartao = cartao;
+  pass.parcela = parcela;
+  pass.idade = idade;
   return true;
 }
 
