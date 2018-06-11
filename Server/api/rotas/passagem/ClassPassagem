@@ -8,6 +8,7 @@ this.origem;
 this.destino;
 this.numero;
 this.tipo;
+this.comprada;
 }
 setid(id){
 this.id = id;

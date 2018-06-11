@@ -29,19 +29,7 @@ type
 */
 
 func main() {
-	url := "http://localhost:8080/passagem/todos"
-	//"http://localhost/hotel:8080"
-	/*var pa Passagem
-	pa.data=10
-	pa.origem='curitiba'
-	pa.destino='penapolis'
-	pa.numero= 13
-	pa.tipo= ida
-	resp, err := http.Post(url, , &buf)
-
-	body := bytes.NewBufferString(pa.Encode())
-
-	*/
+	url := "http://localhost:8080/passagem"
 
 	res, err := http.Get(url)
 	if err != nil {
@@ -61,6 +49,21 @@ func main() {
 	bodye := []byte(body)
 	fmt.Println(string(bodye))
 
+	//birdJson := `{"species": "pigeon","description": "likes to perch on rocks"}`
+
+	/*
+		responseBody := bodye
+		var pas map[string]interface{}
+		erro := json.Unmarshal([]byte(responseBody), &pas)
+		if erro != nil {
+			panic(erro)
+		}
+		fmt.Println(data["id\\"])
+		fmt.Println(data["origem\\"])
+		fmt.Println(data["destino"])
+		fmt.Println(data["numero"])
+		fmt.Println(data["tipo"])
+	*/
 	/*	IMPORTANTEEEEEEEEEEEEEEEEEEEEEE
 		var dadosJson Passagem
 		erro := json.Unmarshal(body, &dadosJson) // aqui acontece a magica!
@@ -89,7 +92,16 @@ func main() {
 
 	switch comando {
 	case 1:
-		fmt.Println("Passagens")
+		fmt.Println("1-Listar passagens")
+		fmt.Println("2-Escolher passagem")
+		fmt.Println("3-Comprar passagem")
+
+		pass := leComando()
+
+		switch pass {
+		case 1:
+
+		}
 	case 2:
 		fmt.Println("Hoteis")
 	case 0:
@@ -208,3 +220,26 @@ func exibeMenu() {
 func compra() {
 
 }
+
+/*
+func getEnde(url){
+	end=url
+	res, err := http.Get(url)
+	if err != nil {
+		fmt.Println("vai dar pau 1if?")
+		panic(err)
+	}
+
+	//defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println("vai dar pau 2if?")
+		panic(err)
+	}
+	fmt.Println(body)
+
+	bodye := []byte(body)
+
+	return bodye
+}*/
