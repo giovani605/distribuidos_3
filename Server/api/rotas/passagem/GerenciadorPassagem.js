@@ -35,7 +35,7 @@ function listarPassagem(){
   }
   var lista = [];
   for(let a of mapa.values()){
-    lista.push(JSON.stringify(a));
+    lista.push(a);
   }
   return lista;
 }
