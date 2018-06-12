@@ -4,10 +4,14 @@ class Hotel{
 constructor(){
 this.id;
 this.data;
-this.origem;
-this.destino;
+this.local;
 this.numero;
-this.tipo;
+this.comprada;
+this.dataSaida;
+this.qtdQuartos;
+this.idade;
+this.cartao;
+this.parcela;
 }
 setid(id){
 this.id = id;

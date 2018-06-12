@@ -24,7 +24,6 @@ router.get('/:id', (req,res,next) => {
   var id = req.params.id;
   var obj = gerenciador.consultar(id);
   res.status(200).json({
-    message:'OK',
     dados:obj
   });
 

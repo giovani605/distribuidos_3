@@ -3,70 +3,57 @@
 // cria uma mapa que tem as passagens
 "use strict";
 var mapa = new Map();
-const Passagem = require('./hotelClass');
-var cont = 1;
+const Hotel = require('./hotelClass');
+var cont = 0;
+criarDados();
 
-function criarPassagem(passagem) {
-  if(testarPassagem(passagem)){
-    salvar(passagem);
-    console.log("salvei a passagem");
-    return true;
-  }
-  else{
-    return false;
-  }
+function criarDados(){
+  mapa.set(cont+"",cria(cont,'hj', 'curitiba',400));
+  mapa.set(cont+"",cria(cont, 'hj','curitiba',100));
+  mapa.set(cont+"",cria(cont, 'hj','cornelio',200));
+  mapa.set(cont+"",cria(cont, '30','cornelio',300));
+  mapa.set(cont+"",cria(cont, '20','cornelio',300));
 }
-function salvar(passagem){
-  // criar um id
-  console.log(passagem);
-  let id = cont;
-  passagem.id = id;
-  // add no map
-  mapa.set(id,passagem);
+
+function cria(id,data_inicio,local,numero){
+  var pass = new Hotel();
+  pass.id = id;
+  pass.data = data_inicio;
+  pass.local = local;
+  pass.numero = numero;
+  pass.comprada = false;
   cont++;
-  listarPassagem();
+  return pass;
 }
 // essa funcao testa se a passagem eh valida
-function testarPassagem(passagem){
+function consultarHotel(id){
+  return mapa.get(id);
+}
+// retorna um mapa das passagens cadastradas
+function listarHotel(){
   if(mapa.size == 0){
-    return true;
+    return;
   }
-
-  for(var a of mapa.values()){
-    console.log(a);
-    if(a.data == passagem.data &&
-      a.origem == passagem.origem &&
-      a.destino == passagem.destino &&
-      a.numero == passagem.numero){
-        return false;
-      }
-    }
-    return true;
+  var lista = [];
+  for(let a of mapa.values()){
+    lista.push(a);
   }
-
-
-  function consultarPassagem(passsagem){
-    // retorna a lista a lista de passagem
-    if(testarPassagem(passagem)){
-      return true;
-    }
-    else{
-      return false;
-    }
+  return lista;
+}
+function comprar(id,cartao,parcela,idade,datasaida,qtdQuartos){
+  var pass = consultarHotel(id);
+  if(pass.comprada == true){
+    return false;
   }
+  pass.comprada = true;
+  pass.cartao = cartao;
+  pass.parcela = parcela;
+  pass.idade = idade;
+  pass.dataSaida = datasaida;
+  pass.qtdQuartos = qtdQuartos;
+  return true;
+}
 
-
-  // retorna um mapa das passagens cadastradas
-  function listarPassagem(){
-    if(mapa.size == 0){
-      return;
-    }
-    var lista = [];
-    for(let a of mapa.values()){
-        lista.push(JSON.stringify(a));
-    }
-    return lista;
-  }
-  exports.consultar = consultarPassagem;
-  exports.criar = criarPassagem;
-  exports.listar = listarPassagem;
+exports.comprar = comprar;
+exports.consultar = consultarHotel;
+exports.listar = listarHotel;

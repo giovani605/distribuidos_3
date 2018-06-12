@@ -8,53 +8,78 @@ const Passagem = require('./hotelClass');
 // aqui eu vou linda com os get request
 var cont = 0;
 
-function extrairDados(body){
-  var pass = new Passagem();
-  pass.data = body.data;
-  pass.origem = body.origem;
-  pass.destino =  body.destino;
-  pass.numero = body.numero;
-  pass.tipo = body.tipo;
-  return pass;
+
+
+router.get('/:id', (req,res,next) => {
+  // recuperar dados do request
+  //  console.log(req);
+  var id = req.params.id;
+  var obj = gerenciador.consultar(id);
+  res.status(200).json({
+    dados:obj
+  });
+
+});
+
+
+// recupera uma lista com todas as passagens disponiveis
+router.get('/', (req,res,next) => {
+  var a = gerenciador.listar();
+  res.status(200).json({
+    dados: a
+  });
+  return;
+});
+
+
+function testarDadosCompra(cartao,parcela,idade,datasaida,qtdQuartos){
+  if(cartao == null){
+    return false;
+  }
+  if(idade == null){
+    return false;
+  }
+  if(parcela == null){
+    return false;
+  }
+  if(datasaida == null){
+    return false;
+  }
+  if(qtdQuartos == null){
+    return false;
+  }
+
+  return true;
 }
 
-router.get('/', (req,res,next) => {
-  // recuperar dados do request
-  console.log(req.body);
-  var pass = extrairDados(req.body);
-  if(gerenciador.consultar(pass)){
+// aqui o cliente quer comprar a passagem
+router.post('/:id', (req,res,next) =>{
+  var id = req.params.id;
+  // extrair variaveis que vem no body
+  let datasaida = req.body.dataSaida;
+  let qtdQuartos = req.body.qtdQuartos;
+  let cartao = req.body.cartao;
+  let parcela = req.body.parcela;
+  let idade = req.body.idade;
+
+  if(!testarDadosCompra(cartao,parcela,idade,datasaida,qtdQuartos)){
     res.status(200).json({
-      message:'Quarto disponivel'
+      message:'dados invalidos'
+    });
+    return;
+  }
+  console.log("dsadsa");
+  if(gerenciador.comprar(id,cartao,parcela,idade,datasaida,qtdQuartos)){
+    res.status(200).json({
+      message:'comprada com sucesso'
     });
   }else{
     res.status(200).json({
-      message:'Quarto nao disponivel'
+      message:'quarto nao disponivel'
     });
   }
 });
 
 
-
-// recupera uma lista com todas as passagens
-router.get('/todos', (req,res,next) => {
-  res.status(200).send(gerenciador.listar());
-  console.log("passei");
-  return;
-
-});
-// aqui lido com os post resquest
-router.post('/', (req,res,next) =>{
-  console.log(req.body);
-  var pass = extrairDados(req.body);
-  if(gerenciador.criar(pass)){
-    res.status(200).json({
-      message:'Quarto comprada com sucesso'
-    });
-  }else{
-    res.status(200).json({
-      message:'Quarto negada'
-    });
-  }
-});
 
 module.exports = router;
